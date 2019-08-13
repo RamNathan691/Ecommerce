@@ -22,7 +22,7 @@ class ProductDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super(ProductDetailView,self).get_context_data(**kwargs)
-        print(context)
+        
         return context
     def get_object(self,*args,**kwargs):
         request=self.request
@@ -49,6 +49,11 @@ class ProductDetailFeaturedView(DetailView):
             queryset=Product.objects.all()
             template_name='products/featured-detail.html'
             
-            def get_queryset(self,*args,**kwargs):
+            def get_object(self,*args,**kwargs):
                 request=self.request
-                return Product.objects.all()
+                slug=self.kwargs.get('slug')
+                try:
+                   instance=Product.objects.get(slug=slug,active=True)
+                except Product.DoesNotExist:
+                     raise Http404("product doesnt exist")
+                return instance
