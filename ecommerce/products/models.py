@@ -21,7 +21,10 @@ class Product(models.Model):
     active=models.BooleanField(default=True)
     def __str__(self):
         return self.title
-    objects=ProductManager()    
+    objects=ProductManager()  
+    
+    def get_absolute_url(self):
+        return "/products/{slug}/".format(slug=self.slug)
 
 def product_presave(sender,instance,**args):
     if not instance.slug:

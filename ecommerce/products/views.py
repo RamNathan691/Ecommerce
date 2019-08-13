@@ -16,33 +16,33 @@ class ProductListView(ListView):
         request=self.request
         return Product.objects.all()
         
-class ProductDetailView(DetailView):
-    queryset=Product.objects.all()
-    template_name='products/productsdetail.html'
+#class ProductDetailView(DetailView):
+    #queryset=Product.objects.all()
+    #template_name='products/productsdetail.html'
     
-    def get_context_data(self, **kwargs):
-        context = super(ProductDetailView,self).get_context_data(**kwargs)
+    #def get_context_data(self, **kwargs):
+     #   context = super(ProductDetailView,self).get_context_data(**kwargs)
         
-        return context
-    def get_object(self,*args,**kwargs):
-        request=self.request
-        pk=self.kwargs.get('pk')
-        instance=Product.objects.get_by_id(pk)
-        if instance is None:
-             raise Http404("product doesnt exist")
-        return instance
+    #    return context
+   # def get_object(self,*args,**kwargs):
+        #request=self.request
+        #pk=self.kwargs.get('pk')
+        #instance=Product.objects.get_by_id(pk)
+        #if instance is None:
+        #     raise Http404("product doesnt exist")
+       # return instance
 
     
-class ProductListFeaturedView(ListView):
-        queryset=Product.objects.all()
-        template_name='products/productslist.html'
+#class ProductListFeaturedView(ListView):
+ #       queryset=Product.objects.all()
+  #      template_name='products/productslist.html'
     
-        def get_context_data(self, **kwargs):
-            context = super(ProductListView,self).get_context_data(**kwargs)
-            return context
-        def get_queryset(self,*args,**kwargs):
-            request=self.request
-            return Product.objects.all()
+   #     def get_context_data(self, **kwargs):
+     #       context = super(ProductListView,self).get_context_data(**kwargs)
+    #        return context
+      #  def get_queryset(self,*args,**kwargs):
+       #     request=self.request
+        #    return Product.objects.all()
 
 
 class ProductDetailFeaturedView(DetailView):
