@@ -4,8 +4,6 @@ from . models import Product
 from django.http import  Http404
 from django.views.generic import ListView,DetailView
 
-
-
 class ProductListView(ListView):
     queryset=Product.objects.all()
     template_name='products/productslist.html'
@@ -18,8 +16,6 @@ class ProductListView(ListView):
         request=self.request
         return Product.objects.all()
         
-    
-    
 class ProductDetailView(DetailView):
     queryset=Product.objects.all()
     template_name='products/productsdetail.html'
@@ -37,3 +33,22 @@ class ProductDetailView(DetailView):
         return instance
 
     
+class ProductListFeaturedView(ListView):
+        queryset=Product.objects.all()
+        template_name='products/productslist.html'
+    
+        def get_context_data(self, **kwargs):
+            context = super(ProductListView,self).get_context_data(**kwargs)
+            return context
+        def get_queryset(self,*args,**kwargs):
+            request=self.request
+            return Product.objects.all()
+
+
+class ProductDetailFeaturedView(DetailView):
+            queryset=Product.objects.all()
+            template_name='products/featured-detail.html'
+            
+            def get_queryset(self,*args,**kwargs):
+                request=self.request
+                return Product.objects.all()
