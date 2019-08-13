@@ -1,5 +1,11 @@
+{% extends "contact/base.html" %}
+
+
+{% block content%}
 {{object.title}}<br>
 {{object.description}}
 {% if object.image %}
 <img src="{{object.image.url}}" width="100px" height="200px" alt="hello">
 {% endif %}
+
+{% endblock %}
