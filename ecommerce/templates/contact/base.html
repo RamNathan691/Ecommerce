@@ -5,10 +5,11 @@
 <title>
 base page
 </title>
- 
+ {% include 'base/css.html'%}
 </head>
 
 <body> 
+{% include 'base/navbar.html' with site_name="Telebury"  %}
 {% block content %}
 {% endblock %}
 
