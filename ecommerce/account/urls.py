@@ -4,6 +4,6 @@ urlpatterns = [
     #path('', views.homepage,name="homepage"),
     path('contact/',views.contactpage,name="contact"),
     path('login/',views.loginpage,name="login"),
-    path('register/',views.registerpage,name="user")
+    path('register/',views.registerpage,name="register")
     
 ]
