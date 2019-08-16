@@ -2,10 +2,16 @@
 
 
 {% block content%}
+<div class="container">
+<div class="row">
+<div class="cols">
 {{object.title}}<br>
-{{object.description}}
+{{object.description}}<br>
+{{object.timestamp| timesince }}ago<br>
 {% if object.image %}
 <img src="{{object.image.url}}" width="100px" height="200px" alt="hello">
 {% endif %}
+</div>
+</div>
 
 {% endblock %}

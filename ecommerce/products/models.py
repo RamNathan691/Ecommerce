@@ -20,6 +20,8 @@ class Product(models.Model):
     image=models.ImageField(upload_to="products/",null=True,blank=True)
     featured=models.BooleanField(default=False)
     active=models.BooleanField(default=True)
+    #timestamp=models.DateTimeField(auto_now_add=True)
+    timestamp=models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.title
     objects=ProductManager()  
