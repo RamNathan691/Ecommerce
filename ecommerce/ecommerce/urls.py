@@ -19,8 +19,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 #so basically U shouldnt use the staticfiles as such done in this project while deployment
 urlpatterns = [
+    
     path('',include('account.urls')),
-    path('',include('products.urls')),
+    path('products/',include('products.urls')),
     path('admin/', admin.site.urls),
 ]
 
