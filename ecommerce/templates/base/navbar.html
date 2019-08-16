@@ -20,12 +20,18 @@
       <li class="nav-item{% if request.path == products_page %} active{% endif %}">
         <a class="nav-link " href="{{products_page}}" tabindex="-1" >Products</a>
       </li>
+      {% if request.user.is_authenticated %}
+      <li class="nav-item{% if request.path == login_page %} active{% endif %}">
+        <a class="nav-link " href="{{login_page}}" tabindex="-1" >Sign Out</a>
+      </li>
+      {% else %}
       <li class="nav-item{% if request.path == login_page %} active{% endif %}">
         <a class="nav-link " href="{{login_page}}" tabindex="-1" >Sign In</a>
       </li>
       <li class="nav-item{% if request.path == register_page %} active{% endif %}">
         <a class="nav-link " href="{{register_page}}" tabindex="-1" >Sign Up</a>
       </li>
+      {% endif %}
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
