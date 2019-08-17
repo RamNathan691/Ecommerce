@@ -16,8 +16,21 @@
       <li class="nav-item {% if request.path == contact_page %} active{% endif %}">
         <a class="nav-link" href="{{contact_page}}">Contacts</a>
       </li>
-     
-      <li class="nav-item{% if request.path == products_page %} active{% endif %}">
+     <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="{{products_page}}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+       Choose Your BucketList
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="#">Electronics</a>
+          <a class="dropdown-item" href="#">Computer Items</a>
+          <a class="dropdown-item" href="#">Laptops & Accessories</a>
+           <a class="dropdown-item" href="#">Gaming Consoles</a>
+            <a class="dropdown-item" href="#">Cameras & Accessories</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+<li class="nav-item{% if request.path == products_page %} active{% endif %}">
         <a class="nav-link " href="{{products_page}}" tabindex="-1" >Products</a>
       </li>
       {% if request.user.is_authenticated %}
