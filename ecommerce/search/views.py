@@ -19,7 +19,7 @@ class SearchProductView(ListView):
         method_dict=request.GET
         query = method_dict.get('q',None)
         if query is not None:
-            lookups =Q(title__icontains=query)|Q(description__icontains=query)|Q(price__icontains=query)
+            lookups =Q(title__icontains=query)|Q(description__icontains=query)|Q(price__icontains=query)|Q(producttag__title__icontains=query)
             if Product.objects.filter(lookups):
                 return Product.objects.filter(lookups).distinct()
             else:    #used to remove the redundant product
