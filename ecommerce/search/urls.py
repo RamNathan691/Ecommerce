@@ -3,7 +3,7 @@ from  .views import SearchProductView
 
 urlpatterns = [
 
-    path('',SearchProductView.as_view(), name="products"),
+    path('',SearchProductView.as_view(), name="query"),
     
    
 ]

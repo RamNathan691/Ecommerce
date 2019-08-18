@@ -18,4 +18,4 @@ class SearchProductView(ListView):
         query = method_dict.get('q',None)
         if query is not None:
             return Product.objects.filter(title__icontains=query)
-        return Product.objects.featured()
+        return Product.objects.filter(featured=True)
