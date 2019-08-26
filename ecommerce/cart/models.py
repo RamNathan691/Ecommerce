@@ -46,3 +46,4 @@ def m2m_changed_cart_receiver(sender,instance,action,*args,**kwargs):
         instance.save()
 
 m2m_changed.connect(m2m_changed_cart_receiver,sender=Cart.products.through)
+

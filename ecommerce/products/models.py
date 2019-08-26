@@ -10,8 +10,7 @@ class ProductManager(models.Manager):
       if qs.count () == 1:
             return qs.first ()    
       return None
-
-
+     
 class Product(models.Model):
     title=models.CharField(max_length=50)
     slug =models.SlugField(blank=True,unique=True)

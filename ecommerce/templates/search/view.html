@@ -1,7 +1,7 @@
 {% extends "contact/base.html" %}
 {% block content%}
 <div class='row'>
-     {% if request.GET.q %}
+     {% if request.GET.q %}<!---if there is a search you can do like thod-->
      <div class="col-12 mb-3" >
      <b> Results For Your search :{{request.GET.q}}</b>
      <hr/>
@@ -25,7 +25,7 @@
     <div class='col'>
     {{forloop.counter}}
     {% include 'products/snippets/card.html' with  instance=obj %}
-    {% if forloop.counter|divisibleby:2%}
+    {% if forloop.counter|divisibleby:3%}
     </div></div><div class="row"><div class="col-12"><hr/></div>
     
     {% else %}
