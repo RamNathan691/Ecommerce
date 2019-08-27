@@ -6,7 +6,7 @@ def cart_home(request):
     #del request.session['cart_id']
     cart_obj,new_obj=Cart.objects.new_or_get(request)
     products=cart_obj.products.all()
-    return render(request,"carts/home.html",{}) 
+    return render(request,"carts/home.html",{"cart":cart_obj}) 
 
     #print(key)
     #request.session.set_expiry(300)
