@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.urls import reverse
 # Create your models here.
-from .utils import unique_slug_generator
+from ecommerce.utils import unique_slug_generator
 class ProductManager(models.Manager):
 
     def get_by_id(self,id):
