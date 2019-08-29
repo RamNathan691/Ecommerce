@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate,login,get_user_model
 from django.shortcuts import render,redirect
 from .forms import ContactForm,LoginForm,RegisterForm
+from django.contrib import messages
 
 # Create your views here.
  
@@ -19,7 +20,7 @@ def loginpage(request):
             login(request,user)
             return redirect('login/')
         else:
-               pass
+              messages.success(request,("Your username is not valid"))
     return render(request,"auth/loginpage.html",{"form":login_form})
 User=get_user_model()
 def registerpage(request):

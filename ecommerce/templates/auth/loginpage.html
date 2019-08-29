@@ -8,10 +8,21 @@
 <div class="text-center">
 <h1><b><p>Hi There !Welcome to the Login <br>
 Happy Shopping :)</b></h1></p> </div>
+
 <form method="POST">
 
  {% csrf_token %}
+ {% for mesg in messages %}
+    <div class="alert alert-warning alert-dismissable " role="alert">
+        <button class="close" data-dismiss="alert">
+            <small>X</small>
+            </button>
+            {{mesg}}
+
+</div>
+{% endfor %}
  {{form}}
+ 
 
  <button type="submit" class="btn btn-dark">Submit</button>
  </form>
