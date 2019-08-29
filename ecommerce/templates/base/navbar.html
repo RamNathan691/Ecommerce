@@ -3,6 +3,7 @@
 {% url 'register' as register_page%}
 {% url 'products' as products_page %}
 {% url 'carthome' as cart_page %}
+{% url 'logout' as logout_page %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
   <a class="navbar-brand" href="#">{{site_name}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,8 +36,8 @@
         <a class="nav-link " href="{{products_page}}" tabindex="-1" >Products</a>
       </li>
       {% if request.user.is_authenticated %}
-      <li class="nav-item{% if request.path == login_page %} active{% endif %}">
-        <a class="nav-link " href="{{login_page}}" tabindex="-1" >Sign Out</a>
+      <li class="nav-item{% if request.path == logout_page %} active{% endif %}">
+        <a class="nav-link " href="{{logout_page}}" tabindex="-1" >Sign Out</a>
       </li>
       {% else %}
       
