@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from products.models import Product
 from .models import Cart
+from order.models import Order
 # Create your views here.
 def cart_home(request):
     #del request.session['cart_id']
@@ -29,3 +30,11 @@ def cart_update(request):
             cart_obj.products.add(product_obj)
       request.session['cart_items']= cart_obj.products.count()
     return redirect('carthome')
+def checkout_home(request):
+      cart_obj,new_obj=Cart.objects.new_or_get(request)
+      order_obj=None
+      if new_obj or cart_obj.products.count() == 0:
+            return redirect('carthome')
+      else:      
+            order_obj,new_order = Order.objects.get_or_create(cart=cart_obj)
+      return render(request,"carts/checkout.html",{"object":order_obj})

@@ -2,6 +2,7 @@ from django.db import models
 from cart.models import Cart
 from ecommerce.utils import unique_order_idgenerator
 from django.db.models.signals import pre_save,post_save
+import math
 # Create your models here.
 ORDER_STATUC_CHOICES=(
     ('created','Created'),
@@ -23,10 +24,11 @@ class Order(models.Model):
     def update_total(self):
         cart_total=self.cart.total
         shipping_total=self.shipping_total
-        new_total=cart_total + shipping_total
-        self.total=new_total
+        new_total=math.fsum([cart_total , shipping_total])
+        formatted_total=format(new_total,'.2f')
+        self.total=formatted_total
         self.save()
-        return new_total
+        return formatted_total
 def presave_create_order_id(sender,instance,*args,**kwargs):
     if not instance.order_id:
         instance.order_id=unique_order_idgenerator(instance)
