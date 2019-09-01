@@ -21,8 +21,8 @@ def guest_page(request):
         if is_safe_url(redirect_path,request.get_host()):
                 return redirect(redirect_path)
         else:
-             return redirect("/register/")
-    return redirect("/register/")
+             return redirect("register")
+    return redirect("register")
   
 
 def loginpage(request):
@@ -36,6 +36,10 @@ def loginpage(request):
         user = authenticate(request,username=username,password=password)
         if user is not None:
             login(request,user)
+            try: 
+                del request.session['guest_email_id']
+            except:
+                    pass    
             if is_safe_url(redirect_path,request.get_host()):
                 return redirect(redirect_path)
         else:

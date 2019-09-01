@@ -3,6 +3,7 @@ from cart.models import Cart
 from ecommerce.utils import unique_order_idgenerator
 from django.db.models.signals import pre_save,post_save
 import math
+from billing.models import Billingprofile
 # Create your models here.
 ORDER_STATUC_CHOICES=(
     ('created','Created'),
@@ -11,6 +12,7 @@ ORDER_STATUC_CHOICES=(
     ('refunded','Refunded'), 
 )
 class Order(models.Model):
+    billing_profile=models.ForeignKey(Billingprofile,null=True,blank=True,on_delete=models.CASCADE)
     order_id=models.CharField(max_length=120,blank=True)
     cart=models.ForeignKey(Cart,on_delete=models.CASCADE)
     

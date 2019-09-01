@@ -51,6 +51,15 @@ def checkout_home(request):
             guest_obj=GuestEmail.objects.get(id=guest_email_id)
             billing_profile,billing_guest_profile_created=Billingprofile.objects.get_or_create(email=guest_obj.email)
       else: pass
+      order_qs=Order.objects.filter(cart=cart_obj,active=True) 
+      if order_qs.exists():
+            order_qs.update(active=False)
+      else:
+            order_obj=Order.objects.create(billing_profile=billing_profile , cart=cart_obj)
+
+
+
+      
       context={
                   "object":order_obj,
                   "billingprofile":billing_profile,
