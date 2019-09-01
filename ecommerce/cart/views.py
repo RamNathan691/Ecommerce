@@ -3,6 +3,7 @@ from products.models import Product
 from .models import Cart
 from order.models import Order
 from account.forms import LoginForm
+from billing.models import Billingprofile
 # Create your views here.
 def cart_home(request):
     #del request.session['cart_id']
@@ -40,7 +41,7 @@ def checkout_home(request):
             order_obj,new_order = Order.objects.get_or_create(cart=cart_obj)
       user=request.user
       login_form=LoginForm()
-      billing_profile=None
+      billing_profile,biiling_profile_created=Billinprofile.objects.get_or_create(user=user,emai=user.email)
       if user.is_authenticated:
             billing_profile=None
       context={
