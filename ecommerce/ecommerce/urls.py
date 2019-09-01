@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path,include 
 from django.conf import settings
 from django.conf.urls.static import static
+
 #so basically U shouldnt use the staticfiles as such done in this project while deployment
 urlpatterns = [
     
@@ -25,6 +26,7 @@ urlpatterns = [
     path('products/',include('products.urls')),
     path('search/',include('search.urls')),
     path('admin/', admin.site.urls),
+  
 ]
 
 if settings.DEBUG:

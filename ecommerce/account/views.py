@@ -1,14 +1,29 @@
 from django.contrib.auth import authenticate,login,get_user_model
 from django.shortcuts import render,redirect
-from .forms import ContactForm,LoginForm,RegisterForm
+from .forms import ContactForm,LoginForm,RegisterForm,GuestForm
 from django.contrib import messages
 from django.utils.http import is_safe_url
+from .models import GuestEmail
 # Create your views here.
  
 def contactpage(request):
     contact_form=ContactForm()
     return render(request,"contact/contactpage.html",{"form":contact_form})
-
+def guest_page(request):
+    guest_form=GuestForm(request.POST or None)
+    next_=request.GET.get('next')
+    next_post=request.POST.get('next')
+    redirect_path=next_ or next_post or None
+    if guest_form.is_valid():
+        email=guest_form.cleaned_data.get("email")
+        new_guest_email=GuestEmail.objects.create(email=email)
+        request.session['guest_email']=new_guest_email.id
+        if is_safe_url(redirect_path,request.get_host()):
+                return redirect(redirect_path)
+        else:
+             return redirect("/register/")
+    return redirect("/register/")
+  
 
 def loginpage(request):
     login_form=LoginForm(request.POST or None)
