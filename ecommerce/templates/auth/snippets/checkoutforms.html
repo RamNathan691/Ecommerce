@@ -1,0 +1,20 @@
+<form action="{% url 'login' %}" method="POST">
+
+ {% csrf_token %}
+ {% if next_url %}
+ <input type="hidden" name="text" value="{{ next_url}}">
+ {% endif %}
+ {% for mesg in messages %}
+    <div class="alert alert-warning alert-dismissable " role="alert">
+        <button class="close" data-dismiss="alert">
+            <small>X</small>
+            </button>
+            {{mesg}}
+
+</div>
+{% endfor %}
+ {{form}}
+ 
+
+ <button type="submit" class="btn btn-dark">Submit</button>
+ </form>

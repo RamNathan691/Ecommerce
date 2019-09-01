@@ -1,8 +1,19 @@
 {% extends "contact/base.html"%}
 {% block content %}
 <h1> Checkout</h1>
-
+{% if  not  billingprofile  %}
+<div class="row text-center">
+    <div class='col-12 col-md-6'>
+    <p class='lead'>Login</p> 
+    {% include 'auth/snippets/checkoutforms.html' with form=login next_url=request.build_absolute_uri %}
+</div>
+<div class='col-12 col-md-6'>
+Continue as Guest
+</div>
+</div>
+{% else %}
 <p>Cart Total:{{ object.cart.total}}</p>
 <p>Shipping Total:{{object.shipping_total}}</p>
 <p>Order Total:{{object.total}}
+ {% endif %}
  {% endblock %}

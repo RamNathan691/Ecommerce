@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from products.models import Product
 from .models import Cart
 from order.models import Order
+from account.forms import LoginForm
 # Create your views here.
 def cart_home(request):
     #del request.session['cart_id']
@@ -37,4 +38,14 @@ def checkout_home(request):
             return redirect('carthome')
       else:      
             order_obj,new_order = Order.objects.get_or_create(cart=cart_obj)
-      return render(request,"carts/checkout.html",{"object":order_obj})
+      user=request.user
+      login_form=LoginForm()
+      billing_profile=None
+      if user.is_authenticated:
+            billing_profile=None
+      context={
+                  "object":order_obj,
+                  "billingprofile":billing_profile,
+                  "login":login_form,
+            }
+      return render(request,"carts/checkout.html",context)
