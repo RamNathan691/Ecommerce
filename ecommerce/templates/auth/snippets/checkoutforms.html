@@ -2,7 +2,7 @@
 
  {% csrf_token %}
  {% if next_url %}
- <input type="hidden" name="text" value="{{next_url}}">
+ <input type="hidden" name="next" value="{{next_url}}">
  {% endif %}
  {% for mesg in messages %}
     <div class="alert alert-warning alert-dismissable " role="alert">

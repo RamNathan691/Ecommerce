@@ -14,7 +14,7 @@ ORDER_STATUC_CHOICES=(
 class Order(models.Model):
     billing_profile=models.ForeignKey(Billingprofile,null=True,blank=True,on_delete=models.CASCADE)
     order_id=models.CharField(max_length=120,blank=True)
-    cart=models.ForeignKey(Cart,on_delete=models.CASCADE)
+    cart=models.OneToOneField(Cart,on_delete=models.CASCADE)
     active=models.BooleanField(default=False)
     
     status=models.CharField(max_length=120,default='created',choices=ORDER_STATUC_CHOICES)
