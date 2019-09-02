@@ -42,6 +42,8 @@ def loginpage(request):
                     pass    
             if is_safe_url(redirect_path,request.get_host()):
                 return redirect(redirect_path)
+            else:
+                   messages.success(request,("Invalid Login url Pls check"))
         else:
               messages.success(request,("Your username is not valid"))
     return render(request,"auth/loginpage.html",{"form":login_form})

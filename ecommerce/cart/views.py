@@ -21,7 +21,7 @@ def cart_home(request):
      #   request.session['cart_id']=cart_obj.id
     #else:
 def cart_update(request):
-    print(request.POST)
+    
     product_id=request.POST.get('product_id')
     if product_id is not None:
       product_obj=Product.objects.get(id=product_id)
@@ -34,7 +34,7 @@ def cart_update(request):
       request.session['cart_items']= cart_obj.products.count()
     return redirect('carthome')
 def checkout_home(request):
-      cart_obj,new_obj=Cart.objects.new_or_get(request)
+      cart_obj , new_obj=Cart.objects.new_or_get(request)
       order_obj=None
       if new_obj or cart_obj.products.count() == 0:
             return redirect('carthome')

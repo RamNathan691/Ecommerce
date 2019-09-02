@@ -21,13 +21,13 @@ class CartManager(models.Manager):
              request.session['cart_id']=cart_obj.id
         return cart_obj,new_obj     
 
-    def new_cart(self,user=None):
+    def new_cart(self,user=None):# Basically this functio is used to create the CART object for us and this is similar to the CREATE function
         user_obj=None
         if user is not None:
             if user.is_authenticated:
                 user_obj=user
         return self.model.objects.create(user=user_obj)
-class Cart(models.Model):
+class Cart(models.Model): 
     user =models.ForeignKey(User,null=True,blank=True,on_delete=models.CASCADE)
     products=models.ManyToManyField(Product,blank=True)
     total=models.DecimalField(default=0.0,max_digits=10,decimal_places=2)
