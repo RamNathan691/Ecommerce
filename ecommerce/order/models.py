@@ -11,11 +11,13 @@ ORDER_STATUC_CHOICES=(
     ('shipped','Shippped'),
     ('refunded','Refunded'), 
 )
+
+
 class Order(models.Model):
     billing_profile=models.ForeignKey(Billingprofile,null=True,blank=True,on_delete=models.CASCADE)
     order_id=models.CharField(max_length=120,blank=True)
-    cart=models.OneToOneField(Cart,on_delete=models.CASCADE)
-    active=models.BooleanField(default=False)
+    cart=models.ForeignKey(Cart,on_delete=models.CASCADE)
+    active=models.BooleanField(default=True)
     
     status=models.CharField(max_length=120,default='created',choices=ORDER_STATUC_CHOICES)
     #shipping_total
@@ -32,10 +34,13 @@ class Order(models.Model):
         self.total=formatted_total
         self.save()
         return formatted_total
+   
 def presave_create_order_id(sender,instance,*args,**kwargs):
     if not instance.order_id:
         instance.order_id=unique_order_idgenerator(instance)
-
+    qs=Order.objects.filter(cart=instance.cart).exclude(billing_profile=instance.billing_profile)
+    if qs.exists:
+        qs.update(active=False)
 pre_save.connect(presave_create_order_id,sender=Order)
 
 def postsave_carttotal(sender,instance,created,*args,**kwargs):

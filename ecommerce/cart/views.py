@@ -35,13 +35,9 @@ def cart_update(request):
     return redirect('carthome')
 def checkout_home(request):
       cart_obj,new_obj=Cart.objects.new_or_get(request)
-      
+      order_obj=None
       if new_obj or cart_obj.products.count() == 0:
             return redirect('carthome')
-      else:      
-            pass
-            # order_obj,new_order=Order.objects.get_or_create(cart=cart_obj)
-            
       user=request.user
       login_form=LoginForm()
       guest_form=GuestForm()
@@ -54,15 +50,13 @@ def checkout_home(request):
             billing_profile,billing_guest_profile_created=Billingprofile.objects.get_or_create(email=guest_obj.email)
       else: 
             pass
-      order_qs=Order.objects.filter(cart=cart_obj,active=True) 
-      if order_qs.exists():
-            order_qs.update(active=False)
-      else:
-            order_obj=Order.objects.create(billing_profile=billing_profile , cart=cart_obj)
-
-
-
-      
+      if billing_profile is not None:
+            order_qs=Order.objects.filter(billing_profile=billing_profile,cart=cart_obj,active=True) 
+            if order_qs.count()==1:
+                  order_obj=order_qs.first()
+            else:
+                  order_obj=Order.objects.create(billing_profile=billing_profile,cart=cart_obj)
+                 
       context={
                   "object":order_obj,
                   "billingprofile":billing_profile,
@@ -70,3 +64,4 @@ def checkout_home(request):
                   "guest_form":guest_form
             }
       return render(request,"carts/checkout.html",context)
+ 
