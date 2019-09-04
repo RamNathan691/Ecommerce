@@ -5,6 +5,7 @@ from order.models import Order
 from account.models import GuestEmail
 from account.forms import LoginForm,GuestForm
 from billing.models import Billingprofile
+from address.forms import AddressForm
 # Create your views here.
 def cart_home(request):
     #del request.session['cart_id']
@@ -41,6 +42,8 @@ def checkout_home(request):
       user=request.user
       login_form=LoginForm()
       guest_form=GuestForm()
+      address_form=AddressForm()
+      billing_address_form=AddressForm()
       billing_profile=None
       guest_email_id=request.session.get('guest_email')
       if user.is_authenticated:
@@ -61,7 +64,9 @@ def checkout_home(request):
                   "object":order_obj,
                   "billingprofile":billing_profile,
                   "login":login_form,
-                  "guest_form":guest_form
+                  "guest_form":guest_form,
+                  "billing_address_form":billing_address_form,
+                  "address_form":address_form
             }
       return render(request,"carts/checkout.html",context)
  

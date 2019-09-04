@@ -1,0 +1,22 @@
+<form action="{% if action_url %}{{action_url}}{% else %}{% url 'login' %}{% endif %}" method="POST">
+
+ {% csrf_token %}
+ {% if next_url %}
+ <input type="hidden" name="next" value="{{next_url}}">
+ {% endif %}
+ {% if next_url %}
+ <input type="hidden" name="address_type" value="{{address_type}}">
+ {% endif %}
+ {% for mesg in messages %}
+    <div class="alert alert-warning alert-dismissable " role="alert">
+        <button class="close" data-dismiss="alert">
+            <small>X</small>
+            </button>
+            {{mesg}}
+
+</div>
+{% endfor %}
+  {{form.as_p}}
+
+ <button type="submit" class="btn btn-dark">Submit</button>
+ </form>
