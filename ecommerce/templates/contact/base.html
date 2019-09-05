@@ -22,7 +22,7 @@ $(document).ready(function(){
         console.log("I made the form not to submit")
 
         var thisform=$(this)
-        var actionEndpoint=thisform.attr("action");
+        var actionEndpoint=thisform.attr("data-endpoint");
         var httpMethod=thisform.attr("method");
         var formData=thisform.serialize();
 
@@ -40,6 +40,8 @@ $(document).ready(function(){
              }
              var navbarcartcount=$(".navbar-cart-count")
              navbarcartcount.text(data.cartItemCount)
+            if(window.location.href.indexOf("cart")!=-1)
+                refreshCart()
             },
             error:function(errorData){
                 console.log("error")
@@ -47,6 +49,27 @@ $(document).ready(function(){
             }
         })
     })
+    function refreshCart(){
+        console.log("Inside the cart")
+        var cartTable=$(".cart-home")
+        var cartBody=cartTable.find(".cart-body")
+        cartBody.html("<h1> Changed</h1>")
+        
+        var updateCartUrl ='/api/cart'
+        var updateCartMethod="GET";
+        var data={}
+        $.ajax({
+            url:updateCartUrl,
+            method:refreshCart,
+            data:data,
+            success:function(data){
+                console.log("success")
+            },
+            error:function(errorData){
+                console.log('error')
+            }
+        })
+    }
 })
 </script>
 </body>
