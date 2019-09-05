@@ -19,6 +19,26 @@ $(document).ready(function(){
     var productForm=$(".product-add-ajax")
     productForm.submit(function(event){
         event.preventDefault();
+        console.log("I made the form not to submit")
+
+        var thisform=$(this)
+        var actionEndpoint=thisform.attr("action");
+        var httpMethod=thisform.attr("method");
+        var formData=thisform.serialize();
+
+        $.ajax({
+            url:actionEndpoint,
+            method:httpMethod,
+            data:formData,
+            success:function(data){
+                console.log("success")
+                console.log(data)
+            },
+            error:function(errorData){
+                console.log("error")
+                console.log(errorData)
+            }
+        })
     })
 })
 </script>
