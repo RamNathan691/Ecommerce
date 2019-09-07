@@ -65,12 +65,16 @@ $(document).ready(function(){
             data:data,
             
             success:function(data){
-                console.log("success")
+                var hiddenproduct=$(".cart-item-removeform")
                     if(data.products.length > 0){
                     productRows.html("")
-                    i=1
+                    i=data.products.length
                     $.each(data.products,function(index,value){
-                        cartBody.prepend("<tr><th scope='row'>"+i+"</th><td>"+value.name+" <td colspan='2'>"+value.price+"</td></tr>")
+                    var newCart=hiddenproduct.clone()  
+                    newCart.css('display',"block")
+                    newCart.find(".remove-product-id").val(value.id)
+                        cartBody.prepend("<tr><th scope='row'>"+ i +"</th><td><a href='" + value.url + "'>" + value.name + "</a>"+ newCart.html()+"</td>"+" <td colspan='2'>" + value.price + "</td></tr>")
+                        i--
                     })
                     cartBody.find(".carttotal").text(data.total)
                 }
