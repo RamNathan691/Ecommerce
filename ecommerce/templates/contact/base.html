@@ -1,5 +1,3 @@
-
-
 <html>
 <head>
 <title>
@@ -7,7 +5,6 @@ base page
 </title>
  {% include 'base/css.html'%}
 </head>
-
 <body> 
 {% include 'base/navbar.html' with site_name="Telebury"  %}
 <div class="container">
@@ -16,21 +13,62 @@ base page
 </div>
 <script>
 $(document).ready(function(){
-    
+    // Handling the Contact Form in ajax
+
+    var contactform=$(".contact")
+    var contactformmethod=contactform.attr("method")
+    var contactformendpoint=contactform.attr("action")
+    contactform.submit(function(event){
+        event.preventDefault()
+        var contactformdata=contactform.serialize()
+        var thisform=$(this)
+        $.ajax({
+            method:contactformmethod,
+            url:contactformendpoint,
+            data:contactformdata,
+            success:function(data){
+                console.log("hello")
+                //if this is we need to refresh the form 
+                contactform[0].reset()
+                 $.alert({
+                    title:"Success!",
+                    content:data.message,//"Thank for Your Submission",
+                    theme:"modern",
+                })
+
+            },
+            error:function(error){
+                $.alert({
+                    title:"Oops!",
+                    content:"An error Occured",
+                    theme:"modern",
+                })
+            },
+        })
+    })
+
+
+
+
+
+
+
+
+
+
+
+
     //Auto Search function goes here
     var searchform = $(".search-form")
     var searchinput = searchform.find("[name='q']")//this gives the input in the URL ?q
     var typingTimer;
     var typingInterval = 2000//1.5sec
     var searchBtn=searchform.find("[type='submit']")
-
     searchinput.keyup(function(event){
         //key is released
-        
         clearTimeout(typingTimer)
         typingTimer = setTimeout(performSearch,typingInterval)
-     
-    })
+     })
     //searchinput.keyup(function(event){
             //key is pressed
       //      clearTimeout(typingTimer)
@@ -40,7 +78,6 @@ $(document).ready(function(){
         searchBtn.addClass("disabled")
         searchBtn.html("<i class='fa fa-spin fa-spinner'></i>Searching....")
     }
-
     function performSearch(){
         doSearch()
         var query=searchinput.val()
@@ -49,27 +86,15 @@ $(document).ready(function(){
         },2000)
            
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //Cart - adding products and refreshing
+     //Cart - adding products and refreshing
     var productForm=$(".product-add-ajax")
     productForm.submit(function(event){
         event.preventDefault();
         console.log("I made the form not to submit")
-
         var thisform=$(this)
         var actionEndpoint=thisform.attr("data-endpoint");
         var httpMethod=thisform.attr("method");
         var formData=thisform.serialize();
-
         $.ajax({
             url:actionEndpoint,
             method:httpMethod,
@@ -107,7 +132,6 @@ $(document).ready(function(){
             url:updateCartUrl,
             method:updateCartMethod,
             data:data,
-            
             success:function(data){
                 var hiddenproduct=$(".cart-item-removeform")
                     if(data.products.length > 0){

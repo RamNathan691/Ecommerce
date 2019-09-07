@@ -4,11 +4,20 @@ from .forms import ContactForm,LoginForm,RegisterForm,GuestForm
 from django.contrib import messages
 from django.utils.http import is_safe_url
 from .models import GuestEmail
+from django.http import JsonResponse,HttpRespnse
 # Create your views here.
  
 def contactpage(request):
     contact_form=ContactForm()
+    if contact_form.is_valid():
+        if request.is_ajax():
+            return JsonResponse({"messsage" : "Thank You"})
+    if contact_form.errors:
+        errors=contact_form.errors.as_json()
+        if request.is_ajax():
+            return HttpResponse(errors,status=400,content_type='application/json')
     return render(request,"contact/contactpage.html",{"form":contact_form})
+
 def guest_page(request):
     guest_form=GuestForm(request.POST or None)
     next_=request.GET.get('next')

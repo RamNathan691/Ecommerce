@@ -5,7 +5,7 @@
 <div class="text-center">
 <h1><b><p>Hi There !Welcome to the ContactPage <br>
 Help Us improve :)</b></h1></p> </div>
-<form method="POST">
+<form class="contact" action="{% url "contact" %}" method="POST">
  {% csrf_token %}
  {{form}}
 
