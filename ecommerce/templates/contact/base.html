@@ -67,7 +67,11 @@ $(document).ready(function(){
             success:function(data){
                 console.log("success")
                     if(data.products.length > 0){
-                    productRows.html("<tr><td colspan='3'>Coming Soon</td></tr>")
+                    productRows.html("")
+                    i=1
+                    $.each(data.products,function(index,value){
+                        cartBody.prepend("<tr><th scope='row'>"+i+"</th><td>"+value.name+" <td colspan='2'>"+value.price+"</td></tr>")
+                    })
                     cartBody.find(".carttotal").text(data.total)
                 }
                 else{
