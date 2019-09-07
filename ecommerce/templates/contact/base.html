@@ -16,6 +16,50 @@ base page
 </div>
 <script>
 $(document).ready(function(){
+    
+    //Auto Search function goes here
+    var searchform = $(".search-form")
+    var searchinput = searchform.find("[name='q']")//this gives the input in the URL ?q
+    var typingTimer;
+    var typingInterval = 2000//1.5sec
+    var searchBtn=searchform.find("[type='submit']")
+
+    searchinput.keyup(function(event){
+        //key is released
+        
+        clearTimeout(typingTimer)
+        typingTimer = setTimeout(performSearch,typingInterval)
+     
+    })
+    //searchinput.keyup(function(event){
+            //key is pressed
+      //      clearTimeout(typingTimer)
+
+    //})
+    function doSearch(){
+        searchBtn.addClass("disabled")
+        searchBtn.html("<i class='fa fa-spin fa-spinner'></i>Searching....")
+    }
+
+    function performSearch(){
+        doSearch()
+        var query=searchinput.val()
+        setTimeout(function(){
+                window.location.href = '/search/?q='+ query
+        },2000)
+           
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //Cart - adding products and refreshing
     var productForm=$(".product-add-ajax")
     productForm.submit(function(event){
         event.preventDefault();
