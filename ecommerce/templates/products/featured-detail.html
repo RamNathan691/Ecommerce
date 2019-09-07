@@ -4,15 +4,18 @@
 {% block content%}
 
 <div class="row ">
-<div class="cols mb-4">
+<div class="cols col-sm-3">
 {{object.title}}<br>
 {{object.description}}<br>
 {{object.timestamp| timesince }}ago<br>
+<h4>Price:{{object.price}}</h4>
+</div>
 {% if object.image %}
-<img src="{{object.image.url}}" width="100px" height="200px" alt="hello">
+<div class="cols sm-6">
+<img src="{{object.image.url}}" width="500px" height="700px" alt="hello">
 {% endif %}
 </div>
-<div class="cols mb-4">
+<div class="cols sm-3">
 {% include 'products/snippets/update-cart.html' with product=object cart=cart %}
 
 </div>
