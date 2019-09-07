@@ -8,6 +8,11 @@ from account.forms import LoginForm,GuestForm
 from billing.models import Billingprofile
 from address.forms import AddressForm
 # Create your views here.
+def cart_detail_api_view(request):
+      cart_obj,new_obj=Cart.objects.new_or_get(request)
+      products=[{"name":x.title,"price":x.price} for x in cart_obj.products.all()]#[<object>,<object>,<object>]
+      cartdata={"products":products,"total":cart_obj.total}
+      return JsonResponse(cartdata)
 def cart_home(request):
     #del request.session['cart_id']
     cart_obj,new_obj=Cart.objects.new_or_get(request)

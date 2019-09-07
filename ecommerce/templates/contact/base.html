@@ -53,20 +53,30 @@ $(document).ready(function(){
         console.log("Inside the cart")
         var cartTable=$(".cart-home")
         var cartBody=cartTable.find(".cart-body")
-        cartBody.html("<h1> Changed</h1>")
-        
-        var updateCartUrl ='/api/cart'
+        //cartBody.html("<h1> Changed</h1>")
+        var productRows=cartBody.find(".cart-products")
+        var refreshCartUrl=window.location.href
+        var updateCartUrl ='api/cart/'
         var updateCartMethod="GET";
         var data={}
         $.ajax({
             url:updateCartUrl,
-            method:refreshCart,
+            method:updateCartMethod,
             data:data,
+            
             success:function(data){
                 console.log("success")
+                    if(data.products.length > 0){
+                    productRows.html("<tr><td colspan='3'>Coming Soon</td></tr>")
+                    cartBody.find(".carttotal").text(data.total)
+                }
+                else{
+                    window.location.href=refreshCartUrl
+                }
             },
             error:function(errorData){
                 console.log('error')
+                console.log(errorData)
             }
         })
     }
