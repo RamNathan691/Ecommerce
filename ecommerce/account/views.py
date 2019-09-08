@@ -4,7 +4,7 @@ from .forms import ContactForm,LoginForm,RegisterForm,GuestForm
 from django.contrib import messages
 from django.utils.http import is_safe_url
 from .models import GuestEmail
-from django.http import JsonResponse,HttpRespnse
+from django.http import JsonResponse,HttpResponse
 # Create your views here.
  
 def contactpage(request):
