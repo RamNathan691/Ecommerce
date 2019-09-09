@@ -4,7 +4,7 @@ from django.contrib.auth.models import(
 )
 # Create your models here.
 class UserManager(BaseUserManager):
-    def create_user(self,email,password=None,is_staff=False,is_admin=False):
+    def create_user(self,email,password=None,is_active=True,is_staff=False,is_admin=False):
         if not email:
             raise ValueError("Users must have an email address")
         user=self.model(
@@ -12,8 +12,18 @@ class UserManager(BaseUserManager):
 
         )
         user.set_password(password)#it is also used to change the user password
+        user.staff=is_staff
+        user.admin=is_admin
+        user.active=active
         user.save(using=self._db)
-        return user_obj
+        return user
+    def create_staffuser(self,email,password=None):
+        staff_user=self.create_user(
+            email,
+            password=password,
+            is_staff=True
+        )
+        return staff_user
 
 
 
