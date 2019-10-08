@@ -6,7 +6,7 @@ User=settings.AUTH_USER_MODEL
 class Billingprofile(models.Model):
     user=models.OneToOneField(User,unique=True,null=True,blank=True,on_delete=models.CASCADE)
     email=models.EmailField()
-    active=models.BooleanField(default=True)
+    active=models.BooleanField(default=True)#we are having this active because we can have morethan or any number of billing profile to an email but when a user loggged in with that billing profile you should have only one billing profiles
     update=models.DateTimeField(auto_now=True)
     timestamp=models.DateTimeField(auto_now_add=True)
 def __str__(self):

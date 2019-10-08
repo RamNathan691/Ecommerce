@@ -56,7 +56,7 @@ class ProductDetailFeaturedView(DetailView):
             template_name='products/featured-detail.html'
             def get_context_data(self,*args,**kwargs):
                 context=super(ProductDetailFeaturedView,self).get_context_data(*args,**kwargs)
-                reqeust=self.request
+                request=self.request
                 slug=self.kwargs.get('slug')
                 try:
                    instance=Product.objects.get(slug=slug,active=True)

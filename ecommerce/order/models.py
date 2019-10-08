@@ -20,7 +20,7 @@ class Order(models.Model):
     active=models.BooleanField(default=True)
     
     status=models.CharField(max_length=120,default='created',choices=ORDER_STATUC_CHOICES)
-    #shipping_total
+   
     shipping_total=models.DecimalField(default=5.90,max_digits=10,decimal_places=2)
     total=models.DecimalField(default=0.0,max_digits=10,decimal_places=2)
 

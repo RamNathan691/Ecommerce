@@ -18,7 +18,7 @@ class SearchProductView(ListView):
         request=self.request
         method_dict=request.GET
         query = method_dict.get('q',None)#method_dict['q']="query"
-        if query is not None:
+        if query is not None:                                                                            #in this it goees for the producttag model name and looks the title given by the q
             lookups =Q(title__icontains=query)|Q(description__icontains=query)|Q(price__icontains=query)|Q(producttag__title__icontains=query)
             if Product.objects.filter(lookups):
                 return Product.objects.filter(lookups).distinct()

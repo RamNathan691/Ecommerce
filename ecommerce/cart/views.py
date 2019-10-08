@@ -18,21 +18,21 @@ def cart_home(request):
     cart_obj,new_obj=Cart.objects.new_or_get(request)
     products=cart_obj.products.all()
     return render(request,"carts/home.html",{"cart":cart_obj}) 
-
+#THIS IS THE VERY IMPORTANT OF THIS PROJECT TO KNOW
     #print(key)
     #request.session.set_expiry(300)
-     #so whenever you go to the the page that you are passing this data when you go to that page you can find the users name
+    #so whenever you go to the the page that you are passing this data when you go to that page you can find the users name
     #how to create a session variable
-      #if cart_id is None:  #and isinstance(cart_id,int):
-       #cart_obj=Cart.objects.create(user=None)
-     #   request.session['cart_id']=cart_obj.id
+    #if cart_id is None:  isinstance(cart_id,int):#the isinstance part is used to check whether the session value is string or integer and not any other datatype
+    #cart_obj=Cart.objects.create(user=None)
+    #request.session['cart_id']=cart_obj.id
     #else:
+    #print("cart ID EXISTS")
 def cart_update(request):
     
     product_id=request.POST.get('product_id')
     if product_id is not None:
       product_obj=Product.objects.get(id=product_id)
-      print(product_obj)
       cart_obj,new_obj=Cart.objects.new_or_get(request)
       if product_obj in cart_obj.products.all():
             cart_obj.products.remove(product_obj)
@@ -51,7 +51,7 @@ def cart_update(request):
           return JsonResponse(json_data)
     return redirect('carthome')
 def checkout_home(request):
-      cart_obj,new_obj=Cart.objects.new_or_get(request)
+      cart_obj,new_obj=Cart.objects.new_or_get(request)#we are getting the current session cart
       order_obj=None
       if new_obj or cart_obj.products.count() == 0:
             return redirect('carthome')
@@ -82,7 +82,7 @@ def checkout_home(request):
                   "login":login_form,
                   "guest_form":guest_form,
                   "billing_address_form":billing_address_form,
-                  "address_form":address_form
+                  "address_form":address_form #This is for the shipping above is for the billing address
             }
       return render(request,"carts/checkout.html",context)
  
