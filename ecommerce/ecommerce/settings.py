@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'address',
 ]
 
+AUTH_USER_MODEL ='account.User'#it changes the built-in USER MODEL to custom user model
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
