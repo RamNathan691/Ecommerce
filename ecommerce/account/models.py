@@ -4,9 +4,12 @@ from django.contrib.auth.models import(
 )
 # Create your models here.
 class UserManager(BaseUserManager):
+    #normal user
     def create_user(self,email,password=None,is_active=True,is_staff=False,is_admin=False):
         if not email:
             raise ValueError("Users must have an email address")
+        if not password:
+            raise ValueError("Enter the Password")
         user=self.model(
             email=self.normalize_email(email)
 
@@ -17,11 +20,21 @@ class UserManager(BaseUserManager):
         user.active=active
         user.save(using=self._db)
         return user
+        #i do known what is staffuser for 
     def create_staffuser(self,email,password=None):
         staff_user=self.create_user(
             email,
             password=password,
             is_staff=True
+        )
+        return staff_user
+        #creating the superuser
+        def create_superuser(self,email,password=None):
+            staff_user=self.create_user(
+            email,
+            password=password,
+            is_admin=True,
+            is_staff=True,#basically he is also a staff user
         )
         return staff_user
 
@@ -44,6 +57,8 @@ class User(AbstractBaseUser):
     timestamp=models.DateTimeField(auto_now_add=True)
     USERNAME_FIELD='email'#this is the goona be the default username
     objects=UserManager()
+    #Username_filed and passsword are required by default
+    REQUIRED_FIELDS=[]#this is used to add the additional required fields this are used only when like python manage.py createsuperuser
     def __str__(self):
         return self.email
 

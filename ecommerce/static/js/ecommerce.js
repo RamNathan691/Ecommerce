@@ -80,8 +80,9 @@ $(document).ready(function () {
         }
         var navbarcartcount = $('.navbar-cart-count')
         navbarcartcount.text(data.cartItemCount)
-        if (window.location.href.indexOf('cart') != -1)
-          {refreshCart()}
+        if (window.location.href.indexOf('carts') != -1) {
+          refreshCart()
+        }
       },
       error: function (errorData) {
         console.log('error')
@@ -108,7 +109,7 @@ $(document).ready(function () {
         if (data.products.length > 0) {
           productRows.html('')
           i = data.products.length
-          $.each(data.products, function (_index, value) {
+          $.each(data.products, function (index, value) {
             var newCart = hiddenproduct.clone()
             newCart.css('display', 'block')
             newCart.find('.remove-product-id').val(value.id)

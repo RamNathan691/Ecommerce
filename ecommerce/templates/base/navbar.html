@@ -51,6 +51,7 @@
       <li class="nav-item{% if request.path == cart_page %} active{% endif %}">
         <a class="nav-link " href="{{cart_page}}" tabindex="-1" ><span class="navbar-cart-count">{{request.session.cart_items}}</span><i class="fa fa-shopping-cart"></i></a>
       </li>
+  
     </ul>
   {% include 'search/snippets/search.html' %}
   </div>

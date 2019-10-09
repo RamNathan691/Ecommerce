@@ -13,11 +13,14 @@ def checkout_address_create_view(request):
     if form.is_valid():
           instance=form.save(commit=False)
           if user.is_authenticated:
-            billing_profile,billing_profile_created=Billingprofile.objects.get_or_create(user=user,email=user.email)                          
+            billing_profile,billing_profile_created = Billingprofile.objects.get_or_create(user=user,email=user.email)                          
             if billing_profile is not None:
-              instance.billing_profile=billing_profile
-              instance.address_type=request.POST.get('address_type','shipping')
-              instance.save()
+                addressType = request.POST.get('addressType','shipping')
+                instance.billing_profile = billing_profile
+                instance.addressType = addressType
+                request.session[addressType+"_address_id"]=instance.id
+                instance.save()
+       
           else:
                   messages.success(request,("Error the address is not saved or Pls LoginIn to continue :( "))
                   return redirect("checkout")

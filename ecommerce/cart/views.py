@@ -7,6 +7,7 @@ from account.models import GuestEmail
 from account.forms import LoginForm,GuestForm
 from billing.models import Billingprofile
 from address.forms import AddressForm
+from address.models import Address
 # Create your views here.
 def cart_detail_api_view(request):
       cart_obj,new_obj=Cart.objects.new_or_get(request)
@@ -59,7 +60,8 @@ def checkout_home(request):
       login_form=LoginForm()
       guest_form=GuestForm()
       address_form=AddressForm()
-      billing_address_form=AddressForm()
+      billing_address_id=request.session.get("billing_address_id",None)
+      shipping_address_id=request.session.get("shipping_address_id",None)
       billing_profile=None
       guest_email_id=request.session.get('guest_email')
       if user.is_authenticated:
@@ -74,14 +76,26 @@ def checkout_home(request):
             if order_qs.count()==1:
                   order_obj=order_qs.first()
             else:
+                  pass
                   order_obj=Order.objects.create(billing_profile=billing_profile,cart=cart_obj)
-                 
+            
+            #if shipping_address_id:
+             #     order_obj.shipping_address=Address.objects.get(id=shipping_address_id)
+              #    order_obj.save()
+               #   del request.session["shipping_address_id"]
+            #if billing_address_id:
+             #         order_obj.billing_address=Address.objects.get(id=billing_address_id)
+              #        order_obj.save()
+               #       del request.session["billing_address_id"]
+
+       
+              
       context={
                   "object":order_obj,
                   "billingprofile":billing_profile,
                   "login":login_form,
                   "guest_form":guest_form,
-                  "billing_address_form":billing_address_form,
+                  #"billing_address_form":billing_address_form,
                   "address_form":address_form #This is for the shipping above is for the billing address
             }
       return render(request,"carts/checkout.html",context)
