@@ -55,6 +55,8 @@ class User(AbstractBaseUser):
     staff=models.BooleanField(default=False)# staff user non superuser
     admin=models.BooleanField(default=False)# superuser
     timestamp=models.DateTimeField(auto_now_add=True)
+    FirstName=models.CharField(max_length=280,blank=True,null=True)
+    LastName=models.CharField(max_length=280,blank=True,null=True)
     USERNAME_FIELD='email'#this is the goona be the default username
     objects=UserManager()
     #Username_filed and passsword are required by default
@@ -67,8 +69,12 @@ class User(AbstractBaseUser):
 
     def get_short_name(self):
         return self.email 
-     
-
+     #these methods are called the built-in methods
+    #so for the module_perm error these are the method to overcome this
+    def has_perm(self,perm,obj=None):
+        return True
+    def has_module_perms(self,app_label):
+        return True
     
     @property
     
