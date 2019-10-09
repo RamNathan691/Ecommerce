@@ -1,0 +1,114 @@
+[
+{
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+        "title": "Iphone8",
+        "slug": "iphone",
+        "description": "The iPhone 8 includes a 4.7-inch display, while the iPhone 8 Plus features a larger 5.5-inch display. Both displays were upgraded with True Tone support, designed to adapt color temperature and intensity to the ambient light in a room for a more natural, paper-like viewing experience.\r\n\r\nFeatures:\r\n4.7-inch Retina HD display with True Tone\r\nIP67 water and dust resistant (maximum depth of 1 meter up to 30 minutes)\r\n12MP camera with OIS and 4K video\r\n7MP FaceTime HD camera with Retina Flash\r\nTouch ID for secure authentication\r\nA11 Bionic with Neural Engine\r\niOS 12 with Screen Time, Group FaceTime, and even faster performance",
+        "price": "64000.50",
+        "image": "products/iphonex-TA.jpg",
+        "featured": false,
+        "active": true,
+        "timestamp": "2019-08-16T12:40:26.288Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+        "title": "Computer",
+        "slug": "computer1",
+        "description": "It is a very super computer which works faster then ever",
+        "price": "9000.90",
+        "image": "products/computer.jpg",
+        "featured": true,
+        "active": true,
+        "timestamp": "2019-08-16T12:40:26.288Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+        "title": "Realme Pro3",
+        "slug": "realme-pro3",
+        "description": "This is high end phone with the cheapest price in the market grab it now",
+        "price": "9000.89",
+        "image": "products/realme_pro3.jpg",
+        "featured": true,
+        "active": true,
+        "timestamp": "2019-08-16T12:40:26.288Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+        "title": "Iphone Xr",
+        "slug": "iphone-xr",
+        "description": "Apple designed a new \"Liquid Retina\" display for the iPhone XR, which is a 6.1-inch LCD with a 1792 x 828 resolution that spans from edge-to-edge and top to bottom with minimal bezels\r\n\r\nFeatures:\r\n6.1-inch Liquid Retina display (LCD)\r\nIP67 water and dust resistant (maximum depth of 1 meter up to 30 minutes)\r\n12MP camera with OIS and 7MP TrueDepth front camera\u2014Portrait mode, Portrait Lighting, Depth Control, and Smart HDR\r\nFace ID for secure authentication\r\nA12 Bionic with next-generation Neural Engine\r\nWireless charging\u2014works with Qi chargers\r\niOS 12 with Memoji, Screen Time, Siri Shortcuts, and Group FaceTime",
+        "price": "80000.00",
+        "image": "products/iphone-xr-white-select-201809.png",
+        "featured": true,
+        "active": true,
+        "timestamp": "2019-08-17T12:53:16.196Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+        "title": "SS cricket Bat",
+        "slug": "ss-cricket-bat",
+        "description": "Hi this is the bat used by the MS dhoni during the 2011 world cup",
+        "price": "5000.99",
+        "image": "",
+        "featured": true,
+        "active": true,
+        "timestamp": "2019-08-17T12:54:07.544Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 6,
+    "fields": {
+        "title": "MI Headphones",
+        "slug": "mi-headphones",
+        "description": "This is brand New Mi headphones that is available in the market for very low cost and it is very robust and easy to use",
+        "price": "450.99",
+        "image": "",
+        "featured": true,
+        "active": true,
+        "timestamp": "2019-08-17T12:54:58.433Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 7,
+    "fields": {
+        "title": "Nike Football",
+        "slug": "nike-football",
+        "description": "Its a ball which is used to play football",
+        "price": "400.00",
+        "image": "",
+        "featured": true,
+        "active": true,
+        "timestamp": "2019-08-18T07:50:39.793Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 8,
+    "fields": {
+        "title": "Peter England Pants",
+        "slug": "peter-england-pants",
+        "description": "Hello this a peter england pants",
+        "price": "4000.00",
+        "image": "",
+        "featured": true,
+        "active": true,
+        "timestamp": "2019-08-18T07:51:32.346Z"
+    }
+}
+]
