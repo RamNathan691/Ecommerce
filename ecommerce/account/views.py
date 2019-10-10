@@ -7,7 +7,7 @@ from .models import GuestEmail
 from django.views.generic import CreateView,FormView
 from django.http import JsonResponse,HttpResponse
 # Create your views here.
- 
+User=get_user_model()
 def contactpage(request):
     contact_form=ContactForm()
     if contact_form.is_valid():
@@ -34,7 +34,7 @@ def guest_page(request):
              return redirect("register")
     return redirect("register")
 class LoginView(FormView):
-      form=LoginForm
+      form_class=LoginForm
       success_url='/'
       template_name="auth/loginpage.html"
 
@@ -81,10 +81,10 @@ class LoginView(FormView):
         #else:
          #     messages.success(request,("Your username is not valid"))
     #return render(request,"auth/loginpage.html",{"form":login_form})
-User=get_user_model()
+
 class RegisterView(CreateView):
-    form=RegisterForm
-    template_name='accounts/register.html'
+    form_class=RegisterForm
+    template_name='auth/register.html'
     success_url='/login/'
 
 #def registerpage(request):
