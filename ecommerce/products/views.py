@@ -4,7 +4,7 @@ from . models import Product
 from django.http import  Http404
 from django.views.generic import ListView,DetailView
 from cart .models import Cart
-
+from analytics.mixin import ObjectViewedMixin
 class ProductListView(ListView):
     queryset=Product.objects.all()
     template_name='products/productslist.html'
@@ -51,7 +51,7 @@ class ProductListView(ListView):
         #    return Product.objects.all()
 
 
-class ProductDetailFeaturedView(DetailView):
+class ProductDetailFeaturedView(ObjectViewedMixin,DetailView):
             queryset=Product.objects.all()
             template_name='products/featured-detail.html'
             def get_context_data(self,*args,**kwargs):
