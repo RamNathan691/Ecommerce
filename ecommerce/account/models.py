@@ -5,14 +5,17 @@ from django.contrib.auth.models import(
 # Create your models here.
 class UserManager(BaseUserManager):
     #normal user
-    def create_user(self,email,password=None,is_active=True,is_staff=False,is_admin=False):
+    def create_user(self,email,FirstName,LastName,password=None,is_active=True,is_staff=False,is_admin=False):
         if not email:
             raise ValueError("Users must have an email address")
         if not password:
             raise ValueError("Enter the Password")
+        if not FirstName and LastName:
+            raise ValueError("The names are should be entered properly")
         user_obj=self.model(
-            email=self.normalize_email(email)
-
+            email=self.normalize_email(email),
+            FirstName=FirstName,
+            LastName=LastName
         )
         user_obj.set_password(password)#it is also used to change the user password
         user_obj.staff=is_staff
@@ -21,17 +24,21 @@ class UserManager(BaseUserManager):
         user_obj.save(using=self._db)
         return user_obj
         #i do known what is staffuser for 
-    def create_staffuser(self,email,password=None):
+    def create_staffuser(self,FirstName,LastName,email,password=None):
         user=self.create_user(
             email,
+            FirstName,
+            LastName,
             password=password,
             is_staff=True
         )
         return user
         #creating the superuser
-    def create_superuser(self,email,password=None):
+    def create_superuser(self,FirstName,LastName,email,password=None):
             user=self.create_user(
               email,
+              FirstName,
+              LastName,
               password=password,
               is_admin=True,
               is_staff=True
@@ -60,7 +67,7 @@ class User(AbstractBaseUser):
     USERNAME_FIELD='email'#this is the goona be the default username
     objects=UserManager()
     #Username_filed and passsword are required by default
-    REQUIRED_FIELDS=[]#this is used to add the additional required fields this are used only when like python manage.py createsuperuser
+    REQUIRED_FIELDS=['FirstName','LastName']#this is used to add the additional required fields this are used only when like python manage.py createsuperuser
     def __str__(self):
         return self.email
 
