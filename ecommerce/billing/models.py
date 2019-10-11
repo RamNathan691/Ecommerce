@@ -13,8 +13,17 @@ class Billingprofile(models.Model):
     update=models.DateTimeField(auto_now=True)
     timestamp=models.DateTimeField(auto_now_add=True)
     customer_id=models.CharField(max_length=120,null=True,blank=True)
-    def __str__(self):
-        self.email
+def __str__(self):
+    self.email
+
+def billing_profile_created_receiver(sender,instance,*args,**kwargs):
+    if not instance.customer_id and instance.email:
+        print("ACTUAL API REQUEST SENT TO THE STRIPE")
+        customer=stripe.Customer.create(
+                email=instance.email
+        )
+        instance.customer_id=customer.id
+pre_save.connect(billing_profile_created_receiver,sender=Billingprofile)
 
 def user_created_reciever(sender,instance,created,*args,**kwargs):
     if created and instance.email:
