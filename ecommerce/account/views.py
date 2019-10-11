@@ -7,6 +7,7 @@ from .models import GuestEmail
 from django.views.generic import CreateView,FormView
 from django.http import JsonResponse,HttpResponse
 # Create your views here.
+from .signals import user_logged_in
 User=get_user_model()
 def contactpage(request):
     contact_form=ContactForm()
@@ -48,6 +49,7 @@ class LoginView(FormView):
         user = authenticate(request,username=username,password=password)
         if user is not None:
             login(request,user)  
+            user_logged_in.send(user.__class__,instance= user,request=request)
             try:
                 del request.session['guest_email']
             except:
