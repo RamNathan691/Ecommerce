@@ -36,7 +36,7 @@ def guest_page(request):
     return redirect("register")
 class LoginView(FormView):
       form_class=LoginForm
-      success_url='/'
+      success_url='/products/'
       template_name="auth/loginpage.html"
 
       def form_valid(self,form):

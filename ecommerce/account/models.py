@@ -15,7 +15,8 @@ class UserManager(BaseUserManager):
         user_obj=self.model(
             email=self.normalize_email(email),
             FirstName=FirstName,
-            LastName=LastName
+            LastName=LastName,
+            active=True
         )
         user_obj.set_password(password)#it is also used to change the user password
         user_obj.staff=is_staff

@@ -48,45 +48,6 @@ class UserAdminChangeForm(forms.ModelForm):
         # field does not have access to the initial value
         return self.initial["password"]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class GuestForm(forms.Form):
     email=forms.EmailField(widget = forms.EmailInput(attrs={'class':'form-control','placeholder':'Enter your emial adress',}))
 class ContactForm(forms.Form):
@@ -123,7 +84,7 @@ class RegisterForm(forms.ModelForm):
         # Save the provided password in hashed format
         user = super(RegisterForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
-        user.active=False
+        user.active=True
         if commit:
             user.save()
         return user

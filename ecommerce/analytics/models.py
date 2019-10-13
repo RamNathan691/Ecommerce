@@ -59,15 +59,15 @@ class UserSession(models.Model):
             pass
         return self.ended
 
-def post_save_session_reciever(sender,instance,created,*args,**kwargs):
-    if created:
-        qs=UserSession.objects.filter(user=instance.user,ended=False,active=False).exclude(id=instance.id)
-        for i in qs:
-            i.end_session()  
-    if not instance.active and not instance.ended:
-        instance.end_session() 
+#def post_save_session_reciever(sender,instance,created,*args,**kwargs):
+ #   if created:
+  #      qs=UserSession.objects.filter(user=instance.user,ended=False,active=False).exclude(id=instance.id)
+   #     for i in qs:
+    #        i.end_session()  
+    #if not instance.active and not instance.ended:
+     #   instance.end_session() 
 #it ends all the session that is currently bieng active at that moment
-post_save.connect(post_save_session_reciever,sender=UserSession)
+#post_save.connect(post_save_session_reciever,sender=UserSession)
 
 
 #def post_save_user_changed_reciever(sender,instance,created,*args,**kwargs):
@@ -85,8 +85,7 @@ def user_logged_in_reciever(sender,instance,request,*args,**kwargs):
     UserSession.objects.create(
         user=user,
         ip_address=ip_address,
-        session_key=sessio_key
+        session_key=session_key
 
     )
-
 user_logged_in.connect(user_logged_in_reciever)
