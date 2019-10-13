@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from address.views import checkout_address_create_view
 from cart.views import cart_detail_api_view
-from billing.views import payment_method_view 
+from billing.views import payment_method_view,payment_method_createview
 #so basically U shouldnt use the staticfiles as such done in this project while deployment
 urlpatterns = [
     
@@ -29,6 +29,7 @@ urlpatterns = [
     path('search/',include('search.urls')),
     path('admin/', admin.site.urls),
     path('billing/payment-method/',payment_method_view,name='payment'),
+    path('billing/payment-create-method/',payment_method_createview,name='payment-create'),
     path('checkout/address/create/view/',checkout_address_create_view,name="checkoutaddress"),
   
 ]
