@@ -1,13 +1,14 @@
 {% extends "contact/base.html"%}
 {% block content %}
-{{object.order_id}}---{{object.cart.id}}
+<!--{{object.order_id}}---{{object.cart.id}}-->
 <h1> Checkout</h1>
-
+<!--if the user is not Logged in we couldnt get the billing profile-->
 {% if  not  billingprofile  %}
 <div class="row text-center">
-    <div class='col-12 col-md-6'>
-    <p class='lead'>Login</p> 
-    {% include 'auth/snippets/checkoutforms.html' with form=login next_url=request.build_absolute_uri %}
+<div class='col-12 col-md-6'>
+<p class='lead'>Login</p> 
+<!--Checkoutform.html/accounts is the login form replica only the function-->
+{% include 'auth/snippets/checkoutforms.html' with form=login next_url=request.build_absolute_uri %}
 </div>
 <div class='col-12 col-md-6'>
 Continue as Guest
@@ -17,14 +18,17 @@ Continue as Guest
 
 
 {% else %}
-{% if not object.shipping_address and not object.billing_address %}
-    <div class='col-12 col-md-6'>
+
+{% if not object.shipping_address %}
+<div class='col-12 col-md-6'>
 <h1>Shipping Address</h1>
 </hr>
+<!--checkoutaddress goes to the address/views.py is function there-->
 {% url 'checkoutaddress' as checkoutaddress%}
 {% include 'address/form.html' with form=address_form next_url=request.build_absolute_uri action_url=checkoutaddress addressType='shipping' %}
 </div>
 </div>
+
 {% elif not object.billing_address %}
 <div class='col-12 col-md-6'>
 <h1>Billing Address</h1>
@@ -32,10 +36,14 @@ Continue as Guest
 {% include 'address/form.html' with form=address_form next_url=request.build_absolute_uri action_url=checkoutaddress addressType='billing' %}
 </div>
 </div>
+
 {% else %}
+<h1>Place Your Order</h1>
 <p>Cart Total:{{ object.cart.total}}</p>
 <p>Shipping Total:{{object.shipping_total}}</p>
 <p>Order Total:{{object.total}}
+<button>Checkout</button>
 {% endif %}
+
  {% endif %}
  {% endblock %}

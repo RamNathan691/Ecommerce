@@ -49,7 +49,7 @@ class UserAdminChangeForm(forms.ModelForm):
         return self.initial["password"]
 
 class GuestForm(forms.Form):
-    email=forms.EmailField(widget = forms.EmailInput(attrs={'class':'form-control','placeholder':'Enter your emial adress',}))
+    email=forms.EmailField(widget = forms.EmailInput(attrs={'class':'form-control','placeholder':'Enter your email adress',}))
 class ContactForm(forms.Form):
     fullname = forms.CharField(widget = forms.TextInput(attrs={'class':"form-control","placeholder":"Enter your name"}))
     email = forms.EmailField(widget = forms.EmailInput(attrs={'class':'form-control','placeholder':'Enter your emial adress',}))

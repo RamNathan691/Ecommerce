@@ -4,8 +4,8 @@
  {% if next_url %}
  <input type="hidden" name="next" value="{{next_url}}">
  {% endif %}
- {% if next_url %}
- <input type="hidden" name="address_type" value="{{address_type}}">
+ {% if addressType %}
+ <input type="hidden" name="addressType" value="{{addressType}}">
  {% endif %}
  {% for mesg in messages %}
     <div class="alert alert-warning alert-dismissable " role="alert">

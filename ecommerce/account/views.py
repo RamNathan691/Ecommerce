@@ -19,7 +19,7 @@ def contactpage(request):
         if request.is_ajax():
             return HttpResponse(errors,status=400,content_type='application/json')
     return render(request,"contact/contactpage.html",{"form":contact_form})
-
+#guest page hhas only the email field to be get
 def guest_page(request):
     guest_form=GuestForm(request.POST or None)
     next_=request.GET.get('next')
@@ -57,6 +57,7 @@ class LoginView(FormView):
             if is_safe_url(redirect_path,request.get_host()):
                 print(redirect_path)
                 return redirect(redirect_path)
+                #return messages.error(redirect_path+"Wrong Navigation")
             else:
                    return redirect('products')
         return super(LoginView,self).form_invalid(form)

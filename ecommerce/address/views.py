@@ -18,8 +18,10 @@ def checkout_address_create_view(request):
                 addressType = request.POST.get('addressType','shipping')
                 instance.billing_profile = billing_profile
                 instance.addressType = addressType
-                request.session[addressType+"_address_id"]=instance.id
                 instance.save()
+                request.session[addressType+"_address_id"]=instance.id
+                print(addressType)
+                
        
           else:
                   messages.success(request,("Error the address is not saved or Pls LoginIn to continue :( "))

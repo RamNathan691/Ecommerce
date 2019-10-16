@@ -53,9 +53,9 @@ def cart_update(request):
     return redirect('carthome')
 def checkout_home(request):
       cart_obj,new_obj=Cart.objects.new_or_get(request)#we are getting the current session cart
-      order_obj=None
+      order_obj=None                                   #get_or_create is build in function
       if new_obj or cart_obj.products.count() == 0:
-            return redirect('carthome')
+            return redirect('carthome')#if the cart is just now created in the above line then go to carthome(Cart is empty)
       user=request.user
       login_form=LoginForm()
       guest_form=GuestForm()
@@ -71,22 +71,21 @@ def checkout_home(request):
             billing_profile,billing_guest_profile_created=Billingprofile.objects.get_or_create(email=guest_obj.email)
       else: 
             pass
+      #so basically the billingprofile is created for the user above but if he logs back again then we shouldnt keep on create an order we should retrieve it and produce it
       if billing_profile is not None:
-            order_qs=Order.objects.filter(billing_profile=billing_profile,cart=cart_obj,active=True) 
-            if order_qs.count()==1:
-                  order_obj=order_qs.first()
-            else:
-                  pass
-                  order_obj=Order.objects.create(billing_profile=billing_profile,cart=cart_obj)
-            
-            #if shipping_address_id:
-             #     order_obj.shipping_address=Address.objects.get(id=shipping_address_id)
-              #    order_obj.save()
-               #   del request.session["shipping_address_id"]
-            #if billing_address_id:
-             #         order_obj.billing_address=Address.objects.get(id=billing_address_id)
-              #        order_obj.save()
-               #       del request.session["billing_address_id"]
+            #order_qs=Order.objects.filter(billing_profile=billing_profile,cart=cart_obj,active=True) 
+            #if order_qs.count()==1:this entire thing moved to the oredermanager
+             #     order_obj=order_qs.first()
+            #else:
+            order_obj,order_obj_created=Order.objects.new_or_get(billing_profile,cart_obj)
+            if shipping_address_id:
+                         order_obj.shipping_address=Address.objects.get(id=shipping_address_id)
+                         order_obj.save()
+                         del request.session["shipping_address_id"]
+            if billing_address_id:
+                             order_obj.billing_address=Address.objects.get(id=billing_address_id)
+                             order_obj.save()
+                             del request.session["billing_address_id"]
 
        
               
