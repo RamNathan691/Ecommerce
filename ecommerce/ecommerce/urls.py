@@ -29,7 +29,7 @@ urlpatterns = [
     path('search/',include('search.urls')),
     path('admin/', admin.site.urls),
     path('billing/payment-method/',payment_method_view,name='payment'),
-    path('billing/payment-create-method/',payment_method_createview,name='payment-create'),
+    path('payment-create-method/',payment_method_createview,name='payment-create'),
     path('checkout/address/create/view/',checkout_address_create_view,name="checkoutaddress"),
   
 ]

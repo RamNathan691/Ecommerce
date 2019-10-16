@@ -7,7 +7,7 @@
 
 <div class='col-10 col-md-6 mx-auto'>
 <h1>Add Your Payment Method</h1>
-<form action="" class="payment-form" method="post" id="payment-form" data-token='{{public_key}}' data-next-url='{% if next_url %}{{next_url}}{% endif %}'>
+<form action="/charge" class="payment-form" method="post" id="payment-form" data-token='{{public_key}}' data-next-url='{% if next_url %}{{next_url}}{% endif %}'>
   <div class="form-row">
     <label for="card-element">
     {{next_url}}
@@ -35,6 +35,7 @@ else if(paymentform.length==1){
 
 var nextURL=paymentform.attr("data-next-url")
 var stripe = Stripe('pk_test_fG9TWih683sQBIqnZmitA9f800WJ06GXpE');
+console.log(nextURL)
 
 // Create an instance of Elements.
 var elements = stripe.elements();
@@ -89,34 +90,37 @@ form.addEventListener('submit', function(event) {
     }
   });
 });
-
+function redirect(nextpath,timeoffset){
+  if(nexpath){
+    setTimeout(function(){
+      window.location.href=next_url
+    },timeoffset)
+  }
+}
 // Submit the form with the token ID.
 function stripeTokenHandler(nextURL,token) {
-var paymentMethodEndpoint='billing/payment-create-method/'
+var paymentMethodEndpoint='payment-create-method/'
+
  var data={
    'token':token.id
  }
-  // Insert the token ID into the form so it gets submitted to the server
-  //var form = document.getElementById('payment-form');
-  //var hiddenInput = document.createElement('input');
-  //hiddenInput.setAttribute('type', 'hidden');
-  //hiddenInput.setAttribute('name', 'stripeToken');
-  //hiddenInput.setAttribute('value', token.id);
-  //form.appendChild(hiddenInput);
-
-  // Submit the form
-  //form.submit();
-  $.ajax({
+$.ajax({
    data:data,
    url:paymentMethodEndpoint,
    method:"POST",
    success:function(data){
-     if(nextURL){
-       window.location.href=nextURL
-     }else{
-       window.location.reload()
+     var succesMsg=data.message||"Success!Your Card has been added."
+     card.clear()  
+     
+     if($.alert){
+       alert(successMsg)
+     
      }
-     console.log(data)
+     else{
+       alert(successMsg)
+      }
+  
+  redirect(nextURL,1500)
    },
    error:function(data){
      console.log(error)

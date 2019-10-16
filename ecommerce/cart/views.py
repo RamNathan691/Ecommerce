@@ -65,7 +65,7 @@ def checkout_home(request):
       billing_profile=None
       guest_email_id=request.session.get('guest_email')
       if user.is_authenticated:
-               billing_profile,billing_profile_created=Billingprofile.objects.get_or_create(user=user,email=user.email)
+               billing_profile, billing_profile_created=Billingprofile.objects.get_or_create(user=user,email=user.email)
       elif  guest_email_id is not None:
             guest_obj=GuestEmail.objects.get(id=guest_email_id)
             billing_profile,billing_guest_profile_created=Billingprofile.objects.get_or_create(email=guest_obj.email)

@@ -55,9 +55,10 @@ class LoginView(FormView):
             except:
                     pass
             if is_safe_url(redirect_path,request.get_host()):
+                print(redirect_path)
                 return redirect(redirect_path)
             else:
-                   messages.success(request,("Invalid Login Navigation "))
+                   return redirect('products')
         return super(LoginView,self).form_invalid(form)
 
 #def loginpage(request):
