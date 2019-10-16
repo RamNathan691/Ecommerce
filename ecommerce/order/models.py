@@ -14,7 +14,7 @@ ORDER_STATUS_CHOICES=(
 )
 class OrderManager(models.Manager):
     def new_or_get(self,billing_profile,cart_obj):
-         order_qs=self.get_queryset().filter(billing_profile=billing_profile,cart=cart_obj,active=True) 
+         order_qs=self.get_queryset().filter(billing_profile=billing_profile,cart=cart_obj,active=True)
          created=False
          if order_qs.count()==1:
                   
@@ -46,6 +46,22 @@ class Order(models.Model):
         self.total=formatted_total
         self.save()
         return formatted_total
+        #if the below things are satisfied then the cart or oder is done
+    def check_done(self):
+        billing_profile=self.billing_profile
+        shipping_address=self.shipping_address
+        billing_address=self.billing_address
+        total=self.total
+        if billing_profile and shipping_address and billing_address and total>0:
+            return True
+        return False
+        
+    def mark_paid(self):
+        if self.check_done():
+            self.status="paid"
+            self.save()
+        return self.status
+
    
 def presave_create_order_id(sender,instance,*args,**kwargs):
     if not instance.order_id:

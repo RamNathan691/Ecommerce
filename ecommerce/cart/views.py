@@ -87,7 +87,22 @@ def checkout_home(request):
                              order_obj.save()
                              del request.session["billing_address_id"]
 
-       
+       #we are gonna update the oder as we are completed the checkout process
+       #so we deletet the cart_id
+       #and redirect it to the success
+       #these 3 we are gonna perform
+      if request.method =="POST":
+            #checking for that order to be done
+            #del request.session['cart_id']
+            done=order_obj.check_done()
+            if done:
+                  order_obj.mark_paid()
+                  del request.session['cart_id']
+                  request.session['cart_items']=0;
+                  return redirect("cart/success/")
+
+
+
               
       context={
                   "object":order_obj,
