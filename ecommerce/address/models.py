@@ -18,3 +18,10 @@ class Address(models.Model):
 
     def __str__(self):
         return self.addressType
+    
+    def get_address(self):
+        return "{line1}\n{line2}\n{city}\n{state}{postal}\n{country}".format(
+            line1=self.addressline1,line2=self.addressline2,city=self.city,state=self.state,
+            postal=self.postalcode,
+            country=self.country)
+        
