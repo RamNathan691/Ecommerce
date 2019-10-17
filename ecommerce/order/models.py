@@ -17,7 +17,7 @@ class OrderManager(models.Manager):
          order_qs=self.get_queryset().filter(billing_profile=billing_profile,cart=cart_obj,active=True)
          created=False
          if order_qs.count()==1:
-                  
+                  #the order object is present
                   order_obj=order_qs.first()
          else:
                  
@@ -88,4 +88,4 @@ def post_save_order(sender,instance,created,*args,**kwargs):
     if created:
         instance.update_total()
 
-post_save.connect(post_save_order,sender=Order )
+post_save.connect(post_save_order,sender=Order)

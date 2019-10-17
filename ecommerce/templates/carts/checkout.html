@@ -7,12 +7,14 @@
 <div class="row text-center">
 <div class='col-12 col-md-6'>
 <p class='lead'>Login</p> 
+
 <!--Checkoutform.html/accounts is the login form replica only the function-->
-{% include 'auth/snippets/checkoutforms.html' with form=login next_url=request.build_absolute_uri %}
+{% include 'auth/snippets/checkoutforms.html' with form=login next_url=request.build_absolute_uri %}<!--request.build_absolute_uri is used to get the full domain-->
 </div>
+
 <div class='col-12 col-md-6'>
 Continue as Guest
-{% url 'guest' as guest_url%}
+{% url 'guest' as guest_url%}<!--it goes to the guest funtion in the guest app-->
 {% include 'auth/snippets/checkoutforms.html' with form=guest_form next_url=request.build_absolute_uri action_url=guest_url %}<!--'guest name of the urlin here you cant put that it will be an error-->
 </div>
 
