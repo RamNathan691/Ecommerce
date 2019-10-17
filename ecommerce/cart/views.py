@@ -71,12 +71,15 @@ def checkout_home(request):
             billing_profile,billing_guest_profile_created=Billingprofile.objects.get_or_create(email=guest_obj.email)
       else: 
             pass
+      address_qs=None
       #so basically the billingprofile is created for the user above but if he logs back again then we shouldnt keep on create an order we should retrieve it and produce it
       if billing_profile is not None:
+            if request.user.is_authenticated:
             #order_qs=Order.objects.filter(billing_profile=billing_profile,cart=cart_obj,active=True) 
             #if order_qs.count()==1:this entire thing moved to the oredermanager
              #     order_obj=order_qs.first()
             #else:
+                  address_qs =Address.objects.filter(billing_profile=billing_profile)
             order_obj,order_obj_created=Order.objects.new_or_get(billing_profile,cart_obj)
             if shipping_address_id:
                          order_obj.shipping_address=Address.objects.get(id=shipping_address_id)
@@ -109,6 +112,7 @@ def checkout_home(request):
                   "billingprofile":billing_profile,
                   "login":login_form,
                   "guest_form":guest_form,
+                  "address_qs":address_qs,
                   #"billing_address_form":billing_address_form,
                   "address_form":address_form #This is for the shipping above is for the billing address
             }

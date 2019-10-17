@@ -22,13 +22,17 @@ Continue as Guest
 {% else %}
 
 {% if not object.shipping_address %}
-<div class='col-12 col-md-6'>
+<div class='col-6'>
 <h1>Shipping Address</h1>
 </hr>
 <!--checkoutaddress goes to the address/views.py is function there-->
+
 {% url 'checkoutaddress' as checkoutaddress%}
+
 {% include 'address/form.html' with form=address_form next_url=request.build_absolute_uri action_url=checkoutaddress addressType='shipping' %}
 </div>
+{% url 'checkoutreuse' as checkoutreuse%}
+{% include 'address/snippets/reuseadd.html' with address_qs=address_qs next_url=request.build_absolute_uri addressType='shipping' action_url=checkoutreuse %}
 </div>
 
 {% elif not object.billing_address %}
@@ -37,6 +41,9 @@ Continue as Guest
 {% url 'checkoutaddress' as checkoutaddress%}
 {% include 'address/form.html' with form=address_form next_url=request.build_absolute_uri action_url=checkoutaddress addressType='billing' %}
 </div>
+{% url 'checkoutreuse' as checkoutreuse%}
+{% include 'address/snippets/reuseadd.html' with address_qs=address_qs next_url=request.build_absolute_uri addressType='billing' action_url=checkoutreuse %}
+
 </div>
 
 {% else %}
